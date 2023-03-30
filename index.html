@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>capital</title>
+    <style>
+      div {
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px 2px;
+        border-radius: 20px;
+        width: 150px;
+        padding: 20px;
+        margin: 10px 0 20px 10px;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script>
+      const numCountry = +prompt("Enter How Many Countries To Display");
+      let list = "https://restcountries.com/v3.1/all";
+      $(function () {
+        $.get(list, (data) => {
+          for (let i = 0; i < numCountry; i++) {
+            let random = Math.floor(Math.random() * data.length) + 1;
+            $(`body`).append(
+              `<div>Flag: <img src=${JSON.stringify(
+                data[random].flags.png
+              )} width=100/></br>
+            Country: ${JSON.stringify(
+              data[random].name.common
+            )}</br>   Capital: ${JSON.stringify(
+                data[random].capital[0]
+              )} </br>  Continent: ${JSON.stringify(
+                data[random].continents[0]
+              )}</br> URL: ${JSON.stringify(data[random].tld[0])}</div>`
+            );
+            let randomColor = `rgb(${Math.floor(
+              Math.random() * 256
+            )}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
+              Math.random() * 256
+            )})`;
+            $(`div:eq(${i})`).css("color", randomColor);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body class="d-flex flex-wrap space-around"></body>
+</html>
